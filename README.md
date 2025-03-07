@@ -17,16 +17,6 @@ This repository includes a dataset of MCC exercises, metrics for evaluating exer
 - **Dataset Curation**: A comprehensive dataset curated with 19 distinct grammar topics, tailored to ensure diverse and accurate representations.
 - **Evaluation Metrics**: Includes automatic metrics, validated against human judgment, to assess structural compliance and linguistic diversity in generated exercises.
 
-## Installation
-
-To set up the project, clone the repository and install the necessary dependencies.
-
-```bash
-git clone https://github.com/yourusername/english-grammar-mcc-exercises.git
-cd english-grammar-mcc-exercises
-pip install -r requirements.txt
-```
-
 ## Usage
 
 1. **Data Preparation**: Prepare the input text data and clean it following the project’s guidelines to ensure quality.
@@ -42,10 +32,12 @@ Two main evaluation criteria are used:
 
 Results have shown that the model achieves approximately 85% structural compliance and limited text repetition, with a strong correlation between automatic and human evaluations.
 
-## Contributing
-
-Contributions are welcome! Please refer to the `CONTRIBUTING.md` for guidelines on how to help improve the project.
-
 ## License
 
 This project is licensed under the Creative Commons Attribution 4.0 International License. See [LICENSE](LICENSE) for details.
+
+## Acknowledgements
+
+We wish to thank Zanichelli editore for their support which enabled data up-sampling, human evaluation, and experimentation with their infrastructure. 
+We also thank Eleonora Cupin for her valuable contribution to the human evaluation of the dataset.
+This work was partially supported by project FAIR: Future Artificial Intelligence Research (European Commission NextGeneration EU programme, PNRR-M4C2-Investimento 1.3, PE00000013-"FAIR" - Spoke 8).
