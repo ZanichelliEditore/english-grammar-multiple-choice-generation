@@ -19,28 +19,44 @@ This repository includes a dataset of MCC exercises, metrics for evaluating exer
 
 ## Usage
 
-1. Load the Base model.
+1. Load the model and tokenizer.
    ```
-   from transformers import AutoModelForCausalLM, AutoTokenizer
-   model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
-   model = AutoModelForCausalLM.from_pretrained(
-       model_id,
-       torch_dtype=torch.bfloat16,
-       device_map="auto",
-       quantization_config=BitsAndBytesConfig(load_in_4bit=True)
-   )                                           
+   import unsloth
+   from unsloth import FastLanguageModel
+   from transformers import TextStreamer
+   
+   model, tokenizer = FastLanguageModel.from_pretrained(
+       model_name = "/english-grammar-multiple-choice-generation/model/", #insert model directory here
+       max_seq_length = 2048,
+       dtype = None,
+       load_in_4bit = True,
+   )
+   FastLanguageModel.for_inference(model)                                           
    ```
-2. Load the Peft adapter.
+2. Generate MCC Exercises.
    ```
-   peft_adapter_path = "path/to/dir/containing/adapter" # ./model if you clone the repo
-   model.load_adapter(peft_adapter_path)
-   ```
-3. Generate MCC Exercises.
-   ```
-   from transformers import pipeline
-   prompt = Write a multiple−choice gap exercise on {grammar_topic} with {n_distractors} distractors.
-   generator = pipeline("text-generation", model = model)
-   exercise = generator(prompt)["generated_text"]
+   prompt = "Write a fill the gap exercise on {topic} with {n_distractors}."
+
+   topics = [
+       'relatives', 'future_simple', 'persobal_pronouns',
+       'past_simple', 'passive', 'non_finites', 'present_perfect',
+       'past_perfect', 'modals', 'possessives',
+       'present_continuous', 'articles', 'present_simple', 'quantifiers',
+       'comparisons', 'conditionals', 'prepositions',
+       'past_continuous', 'wh_questions'
+   ]
+   
+   inputs = tokenizer(
+       [
+           prompt.format(
+               topic = "past_simple",  
+               n_distractors = "3"
+           )
+       ],
+       return_tensors="pt",
+   ).to("cuda")
+   text_streamer = TextStreamer(tokenizer)
+   res = model.generate(**inputs, streamer=text_streamer, max_new_tokens=250, temperature=0.7)
    ```
 
 ## Evaluation
