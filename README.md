@@ -19,10 +19,29 @@ This repository includes a dataset of MCC exercises, metrics for evaluating exer
 
 ## Usage
 
-1. **Data Preparation**: Prepare the input text data and clean it following the project’s guidelines to ensure quality.
-2. **Fine-Tuning the Model**: Use the provided dataset to fine-tune an LLM for MCC exercise generation on specific grammar topics. See [Fine-Tuning Instructions](fine_tuning.md) for details.
-3. **Generating Exercises**: Run the generation script to produce exercises, specifying grammar topics and the number of distractors.
-4. **Evaluation**: Use the provided evaluation metrics to assess the structural and linguistic quality of the generated exercises.
+1. Load the Base model.
+   ```
+   from transformers import AutoModelForCausalLM, AutoTokenizer
+   model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+   model = AutoModelForCausalLM.from_pretrained(
+       model_id,
+       torch_dtype=torch.bfloat16,
+       device_map="auto",
+       quantization_config=BitsAndBytesConfig(load_in_4bit=True)
+   )                                           
+   ```
+2. Load the Peft adapter.
+   ```
+   peft_adapter_path = "path/to/dir/containing/adapter" # ./model if you clone the repo
+   model.load_adapter(peft_adapter_path)
+   ```
+3. Generate MCC Exercises.
+   ```
+   from transformers import pipeline
+   prompt = Write a multiple−choice gap exercise on {grammar_topic} with {n_distractors} distractors.
+   generator = pipeline("text-generation", model = model)
+   exercise = generator(prompt)["generated_text"]
+   ```
 
 ## Evaluation
 
