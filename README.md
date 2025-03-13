@@ -19,44 +19,51 @@ This repository includes a dataset of MCC exercises, metrics for evaluating exer
 
 ## Usage
 
-1. Load the model and tokenizer.
+0. Clone the repo.
+   ```
+   git clone https://github.com/ZanichelliEditore/english-grammar-multiple-choice-generation.git
+   # move into the repo
+   cd english-grammar-multiple-choice-generation
+   git lfs pull
+   ```
+2. Load the model and tokenizer.
    ```
    import unsloth
    from unsloth import FastLanguageModel
    from transformers import TextStreamer
    
    model, tokenizer = FastLanguageModel.from_pretrained(
-       model_name = "/english-grammar-multiple-choice-generation/model/", #insert model directory here
+       model_name = "/english-grammar-multiple-choice-generation/model/", # insert model directory here
        max_seq_length = 2048,
        dtype = None,
        load_in_4bit = True,
    )
    FastLanguageModel.for_inference(model)                                           
    ```
-2. Generate MCC Exercises.
+3. Generate MCC Exercises.
    ```
-   prompt = "Write a fill the gap exercise on {topic} with {n_distractors}."
-
+   prompt_format ='<|begin_of_text|><|start_header_id|>user<|end_header_id|>\n\nWrite a fill the gap exercise on {grammar_topic} with {n_distractors} distractors.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n'
    topics = [
-       'relatives', 'future_simple', 'persobal_pronouns',
-       'past_simple', 'passive', 'non_finites', 'present_perfect',
-       'past_perfect', 'modals', 'possessives',
-       'present_continuous', 'articles', 'present_simple', 'quantifiers',
+       'relatives', 'future simple', 'personal pronouns',
+       'past simple', 'passive', 'non finites', 'present perfect',
+       'past perfect', 'modals', 'possessives',
+       'present continuous', 'articles', 'present simple', 'quantifiers',
        'comparisons', 'conditionals', 'prepositions',
-       'past_continuous', 'wh_questions'
+       'past continuous', 'wh questions'
    ]
-   
    inputs = tokenizer(
        [
-           prompt.format(
-               topic = "past_simple",  
-               n_distractors = "3"
+           prompt_format.format(
+               grammar_topic='present simple',
+               n_distractors=3
            )
        ],
        return_tensors="pt",
    ).to("cuda")
    text_streamer = TextStreamer(tokenizer)
    res = model.generate(**inputs, streamer=text_streamer, max_new_tokens=250, temperature=0.7)
+   exercise = tokenizer.batch_decode(res)[0].split("<|start_header_id|>assistant<|end_header_id|>")[1]
+   print(exercise)
    ```
 
 ## Evaluation
