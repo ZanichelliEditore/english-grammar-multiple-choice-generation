@@ -19,12 +19,13 @@ This repository includes a dataset of MCC exercises, metrics for evaluating exer
 
 ## Usage
 
-0. Clone the repo.
+0. Clone the repo and install requirements.
    ```
    git clone https://github.com/ZanichelliEditore/english-grammar-multiple-choice-generation.git
    # move into the repo
    cd english-grammar-multiple-choice-generation
    git lfs pull
+   pip install -r requirements.txt
    ```
 2. Load the model and tokenizer.
    ```
