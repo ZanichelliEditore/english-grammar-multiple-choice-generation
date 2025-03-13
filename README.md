@@ -84,3 +84,28 @@ This project is licensed under the Creative Commons Attribution 4.0 Internationa
 We wish to thank Zanichelli editore for their support which enabled data up-sampling, human evaluation, and experimentation with their infrastructure. 
 We also thank Eleonora Cupin for her valuable contribution to the human evaluation of the dataset.
 This work was partially supported by project FAIR: Future Artificial Intelligence Research (European Commission NextGeneration EU programme, PNRR-M4C2-Investimento 1.3, PE00000013-"FAIR" - Spoke 8).
+
+## Citation
+```
+   @inproceedings{donati-etal-2024_MCC_Generation,
+       title = "Generation and Evaluation of {E}nglish Grammar Multiple-Choice Cloze Exercises",
+       author = "Donati, Nicol{\`o}  and
+         Periani, Matteo  and
+         Di Natale, Paolo  and
+         Savino, Giuseppe  and
+         Torroni, Paolo",
+       editor = "Dell'Orletta, Felice  and
+         Lenci, Alessandro  and
+         Montemagni, Simonetta  and
+         Sprugnoli, Rachele",
+       booktitle = "Proceedings of the 10th Italian Conference on Computational Linguistics (CLiC-it 2024)",
+       month = dec,
+       year = "2024",
+       address = "Pisa, Italy",
+       publisher = "CEUR Workshop Proceedings",
+       url = "https://aclanthology.org/2024.clicit-1.39/",
+       pages = "325--334",
+       ISBN = "979-12-210-7060-6",
+       abstract = "English grammar Multiple-Choice Cloze (MCC) exercises are crucial for improving learners' grammatical proficiency andcomprehension skills. However, creating these exercises is labour-intensive and requires expert knowledge. Effective MCCexercises must be contextually relevant and engaging, incorporating distractors{---}plausible but incorrect alternatives{---}tobalance difficulty and maintain learner motivation. Despite the increasing interest in utilizing large language models (LLMs)in education, their application in generating English grammar MCC exercises is still limited. Previous methods typicallyimpose constraints on LLMs, producing grammatically correct yet uncreative results. This paper explores the potentialof LLMs to independently generate diverse and contextually relevant MCC exercises without predefined limitations. Wehypothesize that LLMs can craft self-contained sentences that foster learner`s communicative competence. Our analysisof existing MCC exercise datasets revealed issues of diversity, completeness, and correctness. Furthermore, we addressthe lack of a standardized automatic metric for evaluating the quality of generated exercises. Our contributions includedeveloping an LLM-based solution for generating MCC exercises, curating a comprehensive dataset spanning 19 grammartopics, and proposing an automatic metric validated against human expert evaluations. This work aims to advance theautomatic generation of English grammar MCC exercises, enhancing both their quality and creativity."
+   }
+```
